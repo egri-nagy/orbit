@@ -22,7 +22,7 @@
   "Applies action to all elements in parallel using reducers.
   It has to turn elts into a vector, otherwise fold does not  kick in."
   [elts action]
-  [(r/fold  cf (fn [coll x] (conj coll x))   (r/mapcat action (vec elts))) #{}])
+  [(r/fold  cf conj (r/mapcat action (vec elts))) #{}])
 
 
 (defn bulk-step
