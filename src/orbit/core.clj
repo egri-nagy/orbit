@@ -24,7 +24,6 @@
   [elts action]
   [(r/fold  cf conj (r/mapcat action (vec elts))) #{}])
 
-
 (defn bulk-step
   "Applies action to all elements in one go. Returns the empty set as
   unprocessed elements."
