@@ -1,6 +1,7 @@
 (ns orbit.core
   "Calculating orbits by graph search algorithms."
-  (:require [clojure.core.reducers :as r]))
+  (:require [clojure.core.reducers :as r])
+  (:gen-class))
 
 (declare single-step
          bulk-step
@@ -12,6 +13,19 @@
          first-solution-bulk
          acyclic-search
          acyclic-search-bulk)
+
+;; to save compile time property into a runtime one
+(defmacro get-version []
+  (System/getProperty "orbit.version"))
+
+(defn -main
+  "The first argument is a name of a file containing Clojure source code.
+  This main method evaluates the forms contained."
+  [& args]
+  (println "Orbit"
+           (get-version))
+  (load-file (first args))
+  (shutdown-agents))
 
 ;; dynamic variable for the size of the task in parallel execution
 (def ^:dynamic *task-size* 256)
