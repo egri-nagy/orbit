@@ -13,6 +13,9 @@
          acyclic-search
          acyclic-search-bulk)
 
+;; dynamic variable for the size of the task in parallel execution
+(def ^:dynamic *task-size* 256)
+
 ;; EXTENSION STRATEGIES
 (defn cf
   ([] #{})
@@ -22,7 +25,7 @@
   "Applies action to all elements in parallel using reducers.
   It has to turn elts into a vector, otherwise fold does not  kick in."
   [elts action]
-  [(r/fold  cf conj (r/mapcat action (vec elts))) #{}])
+  [(r/fold *task-size* cf conj (r/mapcat action (vec elts))) #{}])
 
 (defn bulk-step
   "Applies action to all elements in one go. Returns the empty set as
