@@ -45,7 +45,7 @@
   "Applies action to all elements in one go. Returns the empty set as
   unprocessed elements."
   [elts action]
-  [(distinct (mapcat action elts)) #{}])
+  [(r/reduce conj #{} (r/mapcat action elts)) #{}])
 
 (defn single-step
   "Produces elements by applying the set-valued action to a single element
