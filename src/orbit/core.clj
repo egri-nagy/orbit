@@ -126,3 +126,7 @@
 (defn acyclic-search-bulk
   [seeds sa solution?]
   (acyclic-search seeds sa solution? bulk-step))
+
+(defn acyclic-search-single
+  [seeds sa solution?]
+  (acyclic-search seeds sa solution? single-step))
