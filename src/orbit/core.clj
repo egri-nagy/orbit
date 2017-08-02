@@ -7,11 +7,13 @@
             [clojure.core.reducers :as r])
   (:gen-class))
 
-(declare full-orbit-single
+(declare full-orbit-parallel
+         full-orbit-single
          full-orbit-bulk
          first-solution-single
          first-solution-bulk
-         acyclic-search-bulk)
+         acyclic-search-bulk
+         acyclic-search-single)
 
 ;; to save compile time property into a runtime one
 (defmacro get-version []
