@@ -1,5 +1,5 @@
 (ns orbit.acyclic-search
-  "Finding solutions when the graph is guarateed to be circuit free.")
+  "Finding all solutions when the graph is guaranteed to be circuit free.")
 
 (defn acyclic-search
   "Searching for solutions by predicate solution?, where the search graph is
