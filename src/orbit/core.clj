@@ -1,21 +1,16 @@
 (ns orbit.core
   "Calculating orbits by graph search algorithms."
   (:require [orbit.extension :as ext]
-            [orbit.full-orbit :only [full-orbit]]
-            [orbit.first-solution :only [first-solution]]
-            [orbit.acyclic-search :only [acyclic-search]]
+            [orbit.full-orbit :refer  [full-orbit]]
+            [orbit.first-solution :refer [first-solution]]
+            [orbit.acyclic-search :refer  [acyclic-search]]
             [clojure.core.reducers :as r])
   (:gen-class))
 
-(declare single-step
-         bulk-step
-         full-orbit
-         full-orbit-single
+(declare full-orbit-single
          full-orbit-bulk
-         first-solution
          first-solution-single
          first-solution-bulk
-         acyclic-search
          acyclic-search-bulk)
 
 ;; to save compile time property into a runtime one

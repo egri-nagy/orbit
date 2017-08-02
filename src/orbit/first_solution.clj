@@ -1,4 +1,4 @@
-(ns orbit.full-orbit
+(ns orbit.first-solution
   "Partial orbit stopping at first solution.")
 
 (defn first-solution
