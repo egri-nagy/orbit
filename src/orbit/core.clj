@@ -1,6 +1,9 @@
 (ns orbit.core
   "Calculating orbits by graph search algorithms."
   (:require [orbit.extension :as ext]
+            [orbit.full-orbit :only [full-orbit]]
+            [orbit.first-solution :only [first-solution]]
+            [orbit.acyclic-search :only [acyclic-search]]
             [clojure.core.reducers :as r])
   (:gen-class))
 
@@ -29,24 +32,10 @@
   (shutdown-agents))
 
 ; FULL ORBIT ALGORITHMS
-(defn full-orbit
-  "Generic graph-search for producing the full orbit from seeds
-  by applying set valued action sa. The order of the enumeration
-  is determined by the step function."
-  [seeds sa stepf]
-  (loop [waiting (seq seeds) ;this seq call makes it a bit faster, why?
-         orbit (set seeds)]
-    (if (empty? waiting)
-      orbit
-      (let [[extensions unprocessed] (stepf waiting sa)
-            newelts (remove orbit extensions)]
-        (recur (into unprocessed newelts)
-               (into orbit newelts))))))
 
 (defn full-orbit-parallel
   [seeds sa]
   (full-orbit seeds sa ext/parallel-step))
-
 
 ;; seeds - elements to act on
 ;; sa - set action function
@@ -63,19 +52,6 @@
   (full-orbit seeds sa ext/single-step))
 
 ; PARTIAL ORBITS, STOPPING AT FIRST SOLUTIONS
-(defn first-solution
-  "Generic search with the ability to bail out early when
-  a solution is found. It returns a solution or nil."
-  [seed sa candidate? solution? stepf]
-  (loop [waiting (set [seed]), orbit #{}]
-    (let [candidates (filter candidate? waiting)
-          solutions (filter solution? candidates)]
-      (if (or (not-empty solutions) (empty? candidates))
-        (first solutions)
-        (let [[newelts unprocessed] (stepf candidates sa)
-              norbit (into orbit candidates)
-              diff (remove norbit newelts)]
-          (recur (into unprocessed diff) norbit))))))
 
 (defn first-solution-single
   "Returns a first solution when searching by breadth-first."
@@ -86,17 +62,6 @@
   "Returns a first solution when searching by depth-first."
   [seed sa candidate? solution?]
   (first-solution seed sa candidate? solution? ext/bulk-step))
-
-(defn acyclic-search
-  "Searching for solutions by predicate solution?, where the search graph is
-  guaranteed to be acyclic, thus no need for keeping the orbit."
-  [seeds sa solution? stepf]
-  (loop [waiting (seq seeds), solutions (set (filter solution? seeds))]
-    (if (empty? waiting)
-      solutions
-      (let [[newelts unprocessed] (stepf waiting sa)]
-        (recur (into unprocessed newelts)
-               (into solutions (filter solution? newelts)))))))
 
 (defn acyclic-search-bulk
   [seeds sa solution?]
