@@ -1,10 +1,11 @@
-(defproject orbit "17.08.02-SNAPSHOT"
+(defproject orbit "17.08.12-SNAPSHOT"
   :description "Parallel orbit and search algorithms"
   :url "https://egri-nagy.github.io/orbit/"
   :license {:name "GNU GENERAL PUBLIC LICENSE"
             :url "http://www.gnu.org/copyleft/gpl.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [criterium "0.4.4"]
+                 [org.clojure/tools.logging "0.4.0"]
                  [slamhound "1.5.5"]]
   :plugins [[lein-cloverage "1.0.6"]
             [lein-kibit "0.1.2"]

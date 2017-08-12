@@ -1,5 +1,6 @@
 (ns orbit.full-orbit
-  "Computing an orbit exhaustively.")
+  "Computing an orbit exhaustively."
+  (:require [clojure.tools.logging :as log]))
 
 (defn full-orbit
   "Generic graph-search for producing the full orbit from seeds
@@ -8,6 +9,7 @@
   [seeds sa stepf]
   (loop [waiting (seq seeds) ;this seq call makes it a bit faster, why?
          orbit (set seeds)]
+    (log/info (count orbit) " + " (count waiting))
     (if (empty? waiting)
       orbit
       (let [[extensions unprocessed] (stepf waiting sa)
