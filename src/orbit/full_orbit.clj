@@ -9,7 +9,7 @@
   [seeds sa stepf]
   (loop [waiting (seq seeds) ;this seq call makes it a bit faster, why?
          orbit (set seeds)]
-    (log/info (count orbit) " + " (count waiting))
+    (log/info "orbit size: " (count orbit) " unprocessed: " (count waiting))
     (if (empty? waiting)
       orbit
       (let [[extensions unprocessed] (stepf waiting sa)
