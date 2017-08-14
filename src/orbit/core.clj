@@ -4,6 +4,7 @@
             [orbit.full-orbit :refer  [full-orbit]]
             [orbit.first-solution :refer [first-solution]]
             [orbit.acyclic-search :refer  [acyclic-search]]
+            [taoensso.timbre :as timbre]
             [clojure.core.reducers :as r])
   (:gen-class))
 
@@ -18,6 +19,9 @@
 ;; to save compile time property into a runtime one
 (defmacro get-version []
   (System/getProperty "orbit.version"))
+
+;; setting default log level
+(timbre/merge-config! {:level :warn})
 
 (defn -main
   "The first argument is a name of a file containing Clojure source code.
