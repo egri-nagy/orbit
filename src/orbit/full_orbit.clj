@@ -11,7 +11,7 @@
   (loop [waiting (seq seeds) ;this seq call makes it a bit faster, why?
          orbit (set seeds)]
     (timbre/info "orbit size:" (count orbit)
-                 " unprocessed:" (count waiting)
+                 "unprocessed:" (count waiting)
                  (memory/mem-info))
     (if (empty? waiting)
       orbit
