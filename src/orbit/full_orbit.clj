@@ -1,6 +1,7 @@
 (ns orbit.full-orbit
   "Computing an orbit exhaustively."
-  (:require [taoensso.timbre :as timbre]))
+  (:require [orbit.memory :as memory]
+            [taoensso.timbre :as timbre]))
 
 (defn full-orbit
   "Generic graph-search for producing the full orbit from seeds
@@ -9,7 +10,9 @@
   [seeds sa stepf]
   (loop [waiting (seq seeds) ;this seq call makes it a bit faster, why?
          orbit (set seeds)]
-    (timbre/info "orbit size: " (count orbit) " unprocessed: " (count waiting))
+    (timbre/info "orbit size: " (count orbit)
+                 " unprocessed: " (count waiting)
+                 " " (memory/mem-info))
     (if (empty? waiting)
       orbit
       (let [[extensions unprocessed] (stepf waiting sa)
