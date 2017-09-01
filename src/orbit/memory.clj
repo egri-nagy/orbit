@@ -1,7 +1,9 @@
 (ns orbit.memory
   "Information about memory usage.")
 
-(defn mem-info []
+(defn mem-info
+  "Info string containing free and total memory (after gc)"
+  []
   (let [rt (java.lang.Runtime/getRuntime)
         total (.totalMemory rt)
         MB (* 1024 1024)]
