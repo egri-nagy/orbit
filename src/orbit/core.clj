@@ -64,6 +64,8 @@
   [seed sa candidate? solution?]
   (first-solution seed sa candidate? solution? ext/bulk-step))
 
+; SEARCHING ACYCLIC GRAPH FOR SOLUTIONS
+
 (defn acyclic-search-bulk
   [seeds sa solution?]
   (acyclic-search seeds sa solution? ext/bulk-step))
