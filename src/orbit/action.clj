@@ -1,5 +1,5 @@
 (ns orbit.action
-  "Making single argument operators from binary functions.")
+  "Producing actions from binary functions.")
 
 (declare right-action  ; binary function to single argument operator
          right-actions ; bulk creation of single argument operators

@@ -1,13 +1,15 @@
 (ns orbit.extension
   "Strategies for creating new elements (extensions) based on a set and
-  an action."
+  an action. General form: taking a collection and an action, returning
+  a new set of elements and the unprocessed, in a vector."
   (:require [clojure.core.reducers :as r]))
 
 ;; dynamic variable for the size of the task in parallel execution
 (def ^:dynamic *task-size* 256)
 
 ;; EXTENSION STRATEGIES
-(defn cf
+(defn combine-function
+  "Combines intermediate results into a set."
   ([] #{})
   ([coll x] (into coll x)))
 
@@ -15,7 +17,7 @@
   "Applies action to all elements in parallel using reducers.
   It has to turn elts into a vector, otherwise fold does not  kick in."
   [elts action]
-  [(r/fold *task-size* cf conj (r/mapcat action (vec elts))) #{}])
+  [(r/fold *task-size* combine-function conj (r/mapcat action (vec elts))) #{}])
 
 (defn bulk-step
   "Applies action to all elements in one go. Returns the empty set as
