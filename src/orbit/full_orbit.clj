@@ -18,4 +18,5 @@
       (let [[extensions unprocessed] (stepf waiting sa)
             newelts (remove orbit extensions)]
         (recur (into unprocessed newelts)
-               (into orbit newelts))))))
+               (into orbit newelts)))))) ;we know that newelts are not in orbit
+                                        ;is there way to avoid double checks?
