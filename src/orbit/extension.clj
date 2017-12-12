@@ -1,7 +1,8 @@
 (ns orbit.extension
   "Strategies for creating new elements (extensions) based on a set and
   an action. General form: taking a collection and an action, returning
-  a new set of elements and the unprocessed, in a vector."
+  a new set of elements and the unprocessed, in a vector.
+  In graph terminology, we find the neighbouring nodes of nodes."
   (:require [clojure.core.reducers :as r]))
 
 ;; dynamic variable for the size of the task in parallel execution
@@ -9,24 +10,29 @@
 
 ;; EXTENSION STRATEGIES
 (defn combine-function
-  "Combines intermediate results into a set."
+  "Combines intermediate results into a set.
+  Required by fold in the reducers library."
   ([] #{})
   ([coll x] (into coll x)))
 
 (defn parallel-step
   "Applies action to all elements in parallel using reducers.
-  It has to turn elts into a vector, otherwise fold does not  kick in."
+  It has to turn elts into a vector, otherwise fold does not  kick in.
+  Processes all elements, thus it returns the empty set unprocessed elements."
   [elts action]
-  [(r/fold *task-size* combine-function conj (r/mapcat action (vec elts))) #{}])
+  [(r/fold *task-size* combine-function conj (r/mapcat action (vec elts)))
+   #{}])
 
 (defn bulk-step
   "Applies action to all elements in one go. Returns the empty set as
   unprocessed elements."
   [elts action]
-  [(r/reduce conj #{} (r/mapcat action elts)) #{}])
+  [(r/reduce conj #{} (r/mapcat action elts))
+   #{}])
 
 (defn single-step
   "Produces elements by applying the set-valued action to a single element
-  from the given collection of elements. Also returns unprocessed elements."
+  from the given collection of elements."
   [elts action]
-  [(action (first elts)) (rest elts)])
+  [(action (first elts))
+   (rest elts)])
