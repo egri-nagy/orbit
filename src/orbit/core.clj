@@ -54,12 +54,12 @@
 ; PARTIAL ORBITS, STOPPING AT FIRST SOLUTIONS
 
 (defn partial-orbit-single
-  "Returns a first solution when searching by breadth-first."
+  "Returns a first solution when searching by extending one by one."
   [seed sa candidate? solution?]
   (partial-orbit seed sa candidate? solution? ext/single-step))
 
 (defn partial-orbit-bulk
-  "Returns a first solution when searching by depth-first."
+  "Returns a first solution when searching by extending the whole frontline."
   [seed sa candidate? solution?]
   (partial-orbit seed sa candidate? solution? ext/bulk-step))
 
