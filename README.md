@@ -2,9 +2,9 @@
 [![Build Status](https://travis-ci.org/egri-nagy/orbit.svg?branch=master)](https://travis-ci.org/egri-nagy/orbit)
 
 # orbit
-The library came out from the observation that most problems in computational abstract algebra require a search algorithm. Instead of writing them again and again, it is natural to abstract the search part out.
+The library came out from the observation that most problems in computational abstract algebra require a search algorithm. Instead of writing them again and again, it is natural to abstract the search part out. It is used by [KIGEN](https://github.com/egri-nagy/kigen).
 
-This library contains generic search algorithms. A set-valued operator and predicates for recognizing possible andactual solutions need to be given.
+This library contains generic search algorithms. A set-valued operator and predicates for recognizing possible and actual solutions need to be given.
 
 The abstraction overhead is counterbalanced by parallel execution (using the reducers library).
 
