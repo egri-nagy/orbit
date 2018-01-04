@@ -1,7 +1,7 @@
-(ns orbit.acyclic-search
+(ns orbit.tree-search
   "Finding all solutions when the graph is guaranteed to be circuit free.")
 
-(defn acyclic-search
+(defn tree-search
   "Searching for solutions by predicate solution?, where the search graph is
   guaranteed to be acyclic, thus no need for keeping the orbit.
   Solutions can be extended to further solutions (i.e. they are not assumed

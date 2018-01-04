@@ -3,7 +3,7 @@
   (:require [orbit.extension :as ext]
             [orbit.full-orbit :refer  [full-orbit]]
             [orbit.first-solution :refer [first-solution]]
-            [orbit.acyclic-search :refer  [acyclic-search]]
+            [orbit.tree-search :refer  [tree-search]]
             [taoensso.timbre :as timbre]
             [clojure.core.reducers :as r])
   (:gen-class))
@@ -13,8 +13,8 @@
          full-orbit-bulk
          first-solution-single
          first-solution-bulk
-         acyclic-search-bulk
-         acyclic-search-single)
+         tree-search-bulk
+         tree-search-single)
 
 ;; to save compile time property into a runtime one
 (defmacro get-version []
@@ -66,10 +66,10 @@
 
 ; SEARCHING ACYCLIC GRAPH FOR SOLUTIONS
 
-(defn acyclic-search-bulk
+(defn tree-search-bulk
   [seeds sa solution?]
-  (acyclic-search seeds sa solution? ext/bulk-step))
+  (tree-search seeds sa solution? ext/bulk-step))
 
-(defn acyclic-search-single
+(defn tree-search-single
   [seeds sa solution?]
-  (acyclic-search seeds sa solution? ext/single-step))
+  (tree-search seeds sa solution? ext/single-step))
