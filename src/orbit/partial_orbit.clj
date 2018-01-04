@@ -1,7 +1,7 @@
-(ns orbit.first-solution
+(ns orbit.partial-orbit
   "Partial orbit stopping at first solution.")
 
-(defn first-solution
+(defn partial-orbit
   "Generic search with the ability to bail out early when
   a solution is found. It returns a solution or nil.
   candidate? returns true if the given element is a possible solution,

@@ -2,17 +2,16 @@
   "Calculating orbits by graph search algorithms."
   (:require [orbit.extension :as ext]
             [orbit.full-orbit :refer  [full-orbit]]
-            [orbit.first-solution :refer [first-solution]]
+            [orbit.partial-orbit :refer [partial-orbit]]
             [orbit.tree-search :refer  [tree-search]]
-            [taoensso.timbre :as timbre]
-            [clojure.core.reducers :as r])
+            [taoensso.timbre :as timbre])
   (:gen-class))
 
 (declare full-orbit-parallel
          full-orbit-single
          full-orbit-bulk
-         first-solution-single
-         first-solution-bulk
+         partial-orbit-single
+         partial-orbit-bulk
          tree-search-bulk
          tree-search-single)
 
@@ -54,15 +53,15 @@
 
 ; PARTIAL ORBITS, STOPPING AT FIRST SOLUTIONS
 
-(defn first-solution-single
+(defn partial-orbit-single
   "Returns a first solution when searching by breadth-first."
   [seed sa candidate? solution?]
-  (first-solution seed sa candidate? solution? ext/single-step))
+  (partial-orbit seed sa candidate? solution? ext/single-step))
 
-(defn first-solution-bulk
+(defn partial-orbit-bulk
   "Returns a first solution when searching by depth-first."
   [seed sa candidate? solution?]
-  (first-solution seed sa candidate? solution? ext/bulk-step))
+  (partial-orbit seed sa candidate? solution? ext/bulk-step))
 
 ; SEARCHING ACYCLIC GRAPH FOR SOLUTIONS
 
