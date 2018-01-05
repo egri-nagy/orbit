@@ -7,7 +7,6 @@
                     #{(conj x 0) (conj x 1)}
                     #{})) ; generation supposed to stop when no more solutions
         sol? (fn [x] (= (count x) 8))
-        bulksol (orbit/tree-search-bulk #{[]} f  sol?)
-        singlesol (orbit/tree-search-single #{[]} f  sol?)]
-    (testing "Testing bulk and single extension for tree searches."
-      (is (= 256 (count bulksol) (count singlesol))))))
+        sols (orbit/tree-search #{[]} f  sol?)]
+    (testing "Testing tree search."
+      (is (= 256 (count sols))))))

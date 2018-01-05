@@ -12,13 +12,11 @@
        coll))
 
 (deftest test-full-orbit
-  (let [bulkres (orbit/full-orbit-bulk [#{1 2 3 4 5 6 7 8}] subset-covers)
-        singleres (orbit/full-orbit-single [#{1 2 3 4 5 6 7 8}] subset-covers)]
-    (testing "Testing single and bulk extensions for full-orbit."
-      (is (= 256 (count bulkres)))
-      (is (= bulkres singleres)))))
+  (let [subsets (orbit/full-orbit [#{1 2 3 4 5 6 7 8}] subset-covers)]
+    (testing "Testing full orbit with subsets."
+      (is (= 256 (count subsets))))))
 
-(deftest test-full-orbit
-  (let [res (orbit/full-orbit-parallel [(range 16)] subset-covers)]
-    (testing "Testing parallel full-orbit search."
+(deftest test-pfull-orbit
+  (let [res (orbit/pfull-orbit [(range 16)] subset-covers)]
+    (testing "Testing parallel full-orbit search with subsets."
       (is (= 65536 (count res))))))

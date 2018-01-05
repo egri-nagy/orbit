@@ -1,19 +1,11 @@
 (ns orbit.core
   "Calculating orbits by graph search algorithms."
   (:require [orbit.extension :as ext]
-            [orbit.full-orbit :refer  [full-orbit]]
-            [orbit.partial-orbit :refer [partial-orbit]]
-            [orbit.tree-search :refer  [tree-search]]
+            [orbit.full-orbit :as f]
+            [orbit.partial-orbit :as p]
+            [orbit.tree-search :as t]
             [taoensso.timbre :as timbre])
   (:gen-class))
-
-(declare full-orbit-parallel
-         full-orbit-single
-         full-orbit-bulk
-         partial-orbit-single
-         partial-orbit-bulk
-         tree-search-bulk
-         tree-search-single)
 
 ;; to save compile time property into a runtime one
 (defmacro get-version []
@@ -32,43 +24,26 @@
   (shutdown-agents))
 
 ; FULL ORBIT ALGORITHMS
-
-(defn full-orbit-parallel
-  [seeds sa]
-  (full-orbit seeds sa ext/parallel-step))
-
 ;; seeds - elements to act on
 ;; sa - set action function
-(defn full-orbit-bulk
+(defn full-orbit
   "Bulk-extension search starting from the elements in seeds using a single
   set-valued action function producing new elements."
   [seeds sa]
-  (full-orbit seeds sa ext/bulk-step))
+  (f/full-orbit seeds sa ext/bulk-step))
 
-(defn full-orbit-single
-  "Single extension search starting from the elements in seeds using a single
-  set-valued action function."
+(defn pfull-orbit
   [seeds sa]
-  (full-orbit seeds sa ext/single-step))
+  (f/full-orbit seeds sa ext/parallel-step))
 
-; PARTIAL ORBITS, STOPPING AT FIRST SOLUTIONS
-
-(defn partial-orbit-single
+; PARTIAL ORBIT, STOPPING AT FIRST SOLUTIONS
+(defn partial-orbit
   "Returns a first solution when searching by extending one by one."
   [seed sa candidate? solution?]
-  (partial-orbit seed sa candidate? solution? ext/single-step))
+  (p/partial-orbit seed sa candidate? solution? ext/single-step))
 
-(defn partial-orbit-bulk
-  "Returns a first solution when searching by extending the whole frontline."
-  [seed sa candidate? solution?]
-  (partial-orbit seed sa candidate? solution? ext/bulk-step))
 
 ; SEARCHING ACYCLIC GRAPH FOR SOLUTIONS
-
-(defn tree-search-bulk
+(defn tree-search
   [seeds sa solution?]
-  (tree-search seeds sa solution? ext/bulk-step))
-
-(defn tree-search-single
-  [seeds sa solution?]
-  (tree-search seeds sa solution? ext/single-step))
+  (t/tree-search seeds sa solution? ext/bulk-step))
