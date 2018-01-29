@@ -8,30 +8,22 @@
          (set (remove (partial = x) coll)))
        coll))
 
-(println "Single")
 
-(binding [orbit.core/*task-size* 32]
+(println "Serial")
+
+(binding [orbit.extension/*task-size* 32]
   (bench
-   (o/full-orbit-single [#{1 2 3 4 5 6 7 8 9}]
-                        subset-covers)
-   :verbose))
-
-
-(println "Bulk")
-
-(binding [orbit.core/*task-size* 32]
-  (bench
-   (o/full-orbit-bulk [#{1 2 3 4 5 6 7 8 9}]
-                          subset-covers)
+   (o/full-orbit [#{1 2 3 4 5 6 7 8 9 10}]
+                 subset-covers)
    :verbose))
 
 
 (println "Parallel")
 
-(binding [orbit.core/*task-size* 32]
+(binding [orbit.extension/*task-size* 32]
   (bench
-   (o/full-orbit-parallel [#{1 2 3 4 5 6 7 8 9}]
-                          subset-covers)
+   (o/pfull-orbit [#{1 2 3 4 5 6 7 8 9 10}]
+                  subset-covers)
    :verbose))
 
 (println)
