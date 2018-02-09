@@ -20,14 +20,14 @@
   It has to turn elts into a vector, otherwise fold does not  kick in.
   Processes all elements, thus it returns the empty set unprocessed elements."
   [elts action]
-  [(r/fold *task-size* combine-function conj (r/mapcat action (vec elts)))
+  [(r/fold *task-size* combine-function into (r/map action (vec elts)))
    #{}])
 
 (defn bulk-step
   "Applies action to all elements in one go. Returns the empty set as
   unprocessed elements."
   [elts action]
-  [(r/reduce conj #{} (r/mapcat action elts))
+  [(r/reduce into #{} (r/map action elts))
    #{}])
 
 (defn single-step
