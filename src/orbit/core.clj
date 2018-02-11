@@ -51,3 +51,8 @@
   of sa to stop if it is not the case."
   [seeds sa solution?]
   (t/tree-search seeds sa solution? ext/bulk-step))
+
+(defn ptree-search
+  "Parallel version of tree-search."
+  [seeds sa solution?]
+  (t/tree-search seeds sa solution? ext/parallel-step))
