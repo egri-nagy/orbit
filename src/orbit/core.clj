@@ -3,16 +3,12 @@
   (:require [orbit.extension :as ext]
             [orbit.full-orbit :as f]
             [orbit.partial-orbit :as p]
-            [orbit.tree-search :as t]
-            [taoensso.timbre :as timbre])
+            [orbit.tree-search :as t])
   (:gen-class))
 
 ;; to save compile time property into a runtime one
 (defmacro get-version []
   (System/getProperty "orbit.version"))
-
-;; setting default log level
-(timbre/merge-config! {:level :warn})
 
 (defn -main
   "The first argument is a name of a file containing Clojure source code.
