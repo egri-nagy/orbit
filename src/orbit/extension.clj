@@ -8,7 +8,7 @@
 ;; dynamic variable for the size of the task in parallel execution
 (def ^:dynamic *task-size* 256)
 
-;; EXTENSION STRATEGIES
+;; EXTENSION STRATEGIES - SET-VALUED ACTIONS
 (defn combine-function
   "Combines intermediate results into a set.
   Required by fold in the reducers library."
@@ -36,3 +36,9 @@
   [elts action]
   [(action (first elts))
    (rest elts)])
+
+;; SINGLE VALUE OPERATORS
+(defn single-op-bulk-step
+  "Produces elements by applying the single-valued operation to all elements."
+  [elts action]
+  [(r/reduce conj #{} (r/map action elts))  #{}])

@@ -20,3 +20,9 @@
   (let [res (orbit/pfull-orbit [(range 16)] subset-covers)]
     (testing "Testing parallel full-orbit search with subsets."
       (is (= 65536 (count res))))))
+
+(deftest test-full-orbit-single-op
+  (let [result (orbit/full-orbit-single-op #{1 3}
+                                           (fn [x] (mod (inc x) 10)))]
+    (testing "Testing full orbit with a single value action."
+      (is (= 10 (count result))))))

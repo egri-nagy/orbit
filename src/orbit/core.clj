@@ -34,6 +34,13 @@
   [seeds sa]
   (f/full-orbit seeds sa ext/parallel-step))
 
+(defn full-orbit-single-op
+  "Calculates full-orbit starting from the elements in seeds using a single
+  set-valued action function producing new elements. Extension is done
+  at a step for the whole front line."
+  [seeds sa]
+  (f/full-orbit seeds sa ext/single-op-bulk-step))
+
 ; PARTIAL ORBIT, STOPPING AT FIRST SOLUTIONS
 (defn partial-orbit
   "Returns a first solution when searching by extending one by one."
