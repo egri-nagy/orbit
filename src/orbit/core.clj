@@ -6,8 +6,10 @@
             [orbit.tree-search :as t])
   (:gen-class))
 
-;; to save compile time property into a runtime one
-(defmacro get-version []
+(defmacro get-version
+  "A macro that  saves in compile time the property for version number, so it is
+  available in runtime."
+  []
   (System/getProperty "orbit.version"))
 
 (defn -main
