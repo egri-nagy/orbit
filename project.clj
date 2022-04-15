@@ -3,7 +3,8 @@
   :url "https://egri-nagy.github.io/orbit/"
   :license {:name "GNU GENERAL PUBLIC LICENSE"
             :url "http://www.gnu.org/copyleft/gpl.html"}
-  :dependencies [[org.clojure/clojure "1.11.1"]]
+  :dependencies [[org.clojure/clojure "1.11.1"]
+                 [criterium "0.4.6"]]
   :plugins [[lein-cloverage "1.2.3"]
             [lein-kibit "0.1.8"]
             [lein-ancient "0.7.0"]
