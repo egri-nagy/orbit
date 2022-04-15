@@ -2,24 +2,23 @@
   (:require [clojure.test :refer :all]
             [orbit.core :as orbit]))
 
-;;testing with operators that construct subsets of a set
-(defn subset-covers
-  "All covering (missing a single element only) subsets of a collection.
-  The collection is assumed to be a set."
+;;testing with generating subsets
+(defn covering-subsets
+  "All covering subsets of a collection, those that miss only one element
+  from the collections. The collection is assumed to be a set."
   [coll]
   (map (fn [x]
          (remove (partial = x) coll))
        coll))
 
-(deftest test-full-orbit
-  (let [subsets (orbit/full-orbit [#{1 2 3 4 5 6 7 8}] subset-covers)]
-    (testing "Testing full orbit with subsets."
-      (is (= 256 (count subsets))))))
-
-(deftest test-pfull-orbit
-  (let [res (orbit/pfull-orbit [(range 16)] subset-covers)]
-    (testing "Testing parallel full-orbit search with subsets."
-      (is (= 65536 (count res))))))
+(deftest test-subsets-full-orbit
+  (let [n 10
+        S (set (range n))
+        subsets1 (orbit/full-orbit [S] covering-subsets)
+        subsets2 (orbit/pfull-orbit [S] covering-subsets)]
+    (testing "Testing full orbit with subset calculations."
+      (is (== (Math/pow 2 n) (count subsets1)))
+      (is (= (set subsets1) (set subsets2) )))))
 
 (deftest test-full-orbit-single-op
   (let [result (orbit/full-orbit-single-op #{1 3}
