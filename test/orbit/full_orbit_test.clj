@@ -21,7 +21,7 @@
       (is (= (set subsets1) (set subsets2) )))))
 
 (deftest test-full-orbit-single-op
-  (let [result (orbit/full-orbit-single-op #{1 3}
-                                           (fn [x] (mod (inc x) 10)))]
+  (let [result (orbit/full-orbit-single-op #{1}
+                                           (fn [x] (mod (* 2 x) 11)))]
     (testing "Testing full orbit with a single value action."
       (is (= 10 (count result))))))
