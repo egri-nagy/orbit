@@ -12,8 +12,8 @@
       (is (= 256 (count sols))))))
 
 (deftest test-ptree-search
-  (let [n 17
-        f (fn [x] (if (< (count x) n) ;generating all bitstrings of length 8
+  (let [n 18
+        f (fn [x] (if (< (count x) n)
                     #{(conj x 0) (conj x 1)}
                     #{})) ; generation supposed to stop when no more solutions
         sol? (fn [x] (= (count x) n))

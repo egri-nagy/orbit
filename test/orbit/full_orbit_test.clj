@@ -12,7 +12,7 @@
        coll))
 
 (deftest test-subsets-full-orbit
-  (let [n 10
+  (let [n 11
         S (set (range n))
         subsets1 (orbit/full-orbit [S] covering-subsets)
         subsets2 (orbit/pfull-orbit [S] covering-subsets)]
