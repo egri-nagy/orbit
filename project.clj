@@ -1,4 +1,4 @@
-(defproject orbit "22.04.15"
+(defproject orbit "24.11.25"
   :description "Parallel orbit and search algorithms"
   :url "https://egri-nagy.github.io/orbit/"
   :license {:name "GNU GENERAL PUBLIC LICENSE"
