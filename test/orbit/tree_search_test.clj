@@ -1,5 +1,5 @@
 (ns orbit.tree-search-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest testing is]]
             [orbit.core :as orbit]))
 
 (deftest test-tree-search
@@ -9,6 +9,14 @@
         sol? (fn [x] (= (count x) 8))
         sols (orbit/tree-search #{[]} f  sol?)]
     (testing "Testing tree search."
+      (is (= 256 (count sols))))))
+
+(deftest test-terminating-tree-search
+  (let [generator-fn (fn [bitstring]
+                       #{(conj bitstring 0) (conj bitstring 1)})
+        sol? (fn [x] (= (count x) 8))
+        sols (orbit/terminating-tree-search #{[]} generator-fn  sol?)]
+    (testing "Testing terminating tree search for generating 8-bit strings."
       (is (= 256 (count sols))))))
 
 (deftest test-ptree-search

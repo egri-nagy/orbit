@@ -1,5 +1,6 @@
 (ns orbit.core
-  "Calculating orbits by graph search algorithms."
+  "Calculating orbits by graph search algorithms.
+   Functions defined here form the complete API."
   (:require [orbit.extension :as ext]
             [orbit.full-orbit :as f]
             [orbit.partial-orbit :as p]
@@ -56,6 +57,13 @@
   of sa to stop if it is not the case."
   [seeds sa solution?]
   (t/tree-search seeds sa solution? ext/bulk-step))
+
+(defn terminating-tree-search
+  "Searching for solutions in a graph known to be acyclic. Solutions are
+   not extended further."
+  [seeds sa solution?]
+  (t/terminating-tree-search seeds sa solution? ext/bulk-step))
+
 
 (defn ptree-search
   "Parallel version of tree-search."

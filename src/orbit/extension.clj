@@ -12,8 +12,13 @@
   3. Does the extensions happen in parallel or in a single thread?"
   (:require [clojure.core.reducers :as r]))
 
-;; dynamic variable for the size of the task in parallel execution
-(def ^:dynamic *task-size* 256)
+(def ^:dynamic *task-size*
+  "Dynamic variable for the size of the task in parallel execution.
+   It affects the parallel extensions. Somewhat arbitrarily the default is 256.
+   To run with different values the preferred way is:
+   `(binding [orbit.extension/*task-size* 32] ,,,)`
+   It ensures that changed value can be seen close to the computation."
+  256)
 
 ;;; EXTENSION STRATEGIES
 
