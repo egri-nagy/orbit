@@ -2,29 +2,35 @@
   (:require [clojure.test :refer [deftest testing is]]
             [orbit.core :as orbit]))
 
+;; generating fixed length bitstrings
+(def N 16)
+
 (deftest test-tree-search
-  (let [f (fn [x] (if (< (count x) 8) ;generating all bitstrings of length 8
-                    #{(conj x 0) (conj x 1)}
-                    #{})) ; generation supposed to stop when no more solutions
-        sol? (fn [x] (= (count x) 8))
-        sols (orbit/tree-search #{[]} f  sol?)]
+  (let [generator-fn
+        (fn [bitstring]
+          (if (< (count bitstring) N) ;generating all bitstrings of length N
+            #{(conj bitstring 0) (conj bitstring 1)}
+            #{})) ; generation supposed to stop when no more solutions
+        sol? (fn [bitstring] (= (count bitstring) N))
+        sols (orbit/tree-search #{[]} generator-fn  sol?)]
     (testing "Testing tree search."
-      (is (= 256 (count sols))))))
+      (is (== (Math/pow 2 N) (count sols))))))
 
 (deftest test-terminating-tree-search
   (let [generator-fn (fn [bitstring]
                        #{(conj bitstring 0) (conj bitstring 1)})
-        sol? (fn [x] (= (count x) 8))
+        sol? (fn [bitstring] (= (count bitstring) N))
         sols (orbit/terminating-tree-search #{[]} generator-fn  sol?)]
-    (testing "Testing terminating tree search for generating 8-bit strings."
-      (is (= 256 (count sols))))))
+    (testing "Testing terminating tree search for generating N-bit strings."
+      (is (== (Math/pow 2 N) (count sols))))))
 
 (deftest test-ptree-search
-  (let [n 18
-        f (fn [x] (if (< (count x) n)
-                    #{(conj x 0) (conj x 1)}
-                    #{})) ; generation supposed to stop when no more solutions
-        sol? (fn [x] (= (count x) n))
-        sols (orbit/ptree-search #{[]} f  sol?)]
-    (testing "Testing tree search."
-      (is (== (Math/pow 2 n) (count sols))))))
+  (let [generator-fn
+        (fn [bitstring]
+          (if (< (count bitstring) N) ;generating all bitstrings of length N
+            #{(conj bitstring 0) (conj bitstring 1)}
+            #{})) ; generation supposed to stop when no more solutions
+        sol? (fn [bitstring] (= (count bitstring) N))
+        sols (orbit/ptree-search #{[]} generator-fn  sol?)]
+    (testing "Testing parallel tree search."
+      (is (== (Math/pow 2 N) (count sols))))))
