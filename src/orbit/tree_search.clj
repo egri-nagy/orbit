@@ -8,7 +8,8 @@
   to be leaf nodes).
   Thus, search terminates when there are new candidates generated."
   [seeds sa solution? stepf]
-  (loop [waiting (seq seeds), solutions (set (filter solution? seeds))]
+  (loop [waiting (seq seeds)
+         solutions (set (filter solution? seeds))]
     (if (empty? waiting)
       solutions
       (let [[newelts unprocessed] (stepf waiting sa)]
@@ -18,7 +19,8 @@
 (defn terminating-tree-search
   "Same as [[tree-search]] but terminating at solutions."
   [seeds sa solution? stepf]
-  (loop [waiting (seq seeds), solutions (set (filter solution? seeds))]
+  (loop [waiting (seq seeds)
+         solutions (set (filter solution? seeds))]
     (if (empty? waiting)
       solutions
       (let [[newelts unprocessed] (stepf waiting sa)
