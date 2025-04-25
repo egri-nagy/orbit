@@ -9,7 +9,7 @@
   solution? returns true when the given element is a solution.
   Bulk and parallel extension strategies (stepf) may be wasteful."
   [seed sa candidate? solution? stepf]
-  (loop [waiting (set [seed]), orbit #{}]
+  (loop [waiting (hash-set seed), orbit #{}]
     (let [candidates (filter candidate? waiting)
           solutions (filter solution? candidates)]
       (if (or (not-empty solutions) (empty? candidates))
