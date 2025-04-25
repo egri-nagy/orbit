@@ -1,10 +1,10 @@
 (ns orbit.extension
-  "There are different ways for extending the orbit being built.
-  The general form of extension is to take a collection (frontier) and an action.
-  By applying the action, we produce a new set of elements. In addition,
-  we also return the unprocessed elements in a vector. This gives control on the
-  extension process. How to do this exactly depends on the answers for the
-  following guiding questions.
+  "How can we extend an orbit? (extending means adding new elements)
+  The general form of extension is taking a collection (frontier) and an action.
+  By applying the action, we produce a new set of elements.
+  In addition, we also return the remaining unprocessed elements in a vector.
+  This gives control on the extension process.
+  How to extend depends on the answers for the  following guiding questions.
   1. Do we have an operator that produces a set of results, or just a single
   one? SET-VALUED vs SINGLE-VALUE
   2. Do we need the extension happen one-by-one, or is it ok to extend the whole
