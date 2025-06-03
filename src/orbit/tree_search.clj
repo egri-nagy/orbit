@@ -16,6 +16,17 @@
         (recur (into unprocessed newelts) ;sort of breadth-first
                (into solutions (filter solution? newelts)))))))
 
+(defn tree-search-depth-first
+  "Same as [[tree-search]] but using depth-first instead of breadth-first."
+  [seeds sa solution? stepf]
+  (loop [waiting (seq seeds)
+         solutions (set (filter solution? seeds))]
+    (if (empty? waiting)
+      solutions
+      (let [[newelts unprocessed] (stepf waiting sa)]
+        (recur (into newelts unprocessed) ;sort of depth-first
+               (into solutions (filter solution? newelts)))))))
+
 (defn terminating-tree-search
   "Same as [[tree-search]] but terminating at solutions, i.e. not including
    solutions in unprocessed elements."

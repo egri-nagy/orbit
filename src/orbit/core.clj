@@ -63,6 +63,11 @@
   [seeds sa solution?]
   (t/tree-search seeds sa solution? ext/parallel-step))
 
+(defn ptree-search-depth-first
+  "Parallel version of tree-search. Solutions extended too."
+  [seeds sa solution?]
+  (t/tree-search-depth-first seeds sa solution? ext/parallel-step))
+
 (defn terminating-tree-search
   "Searching for solutions in a graph known to be acyclic. Solutions are
    not extended further."
