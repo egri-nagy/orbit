@@ -5,7 +5,7 @@
   "Searching for solutions by predicate solution?, where the search graph is
   guaranteed to be acyclic, thus no need for keeping the orbit.
   Solutions can be extended to further solutions (i.e. they are not assumed
-  to be leaf nodes).
+  to be leaf nodes, solutions can be extended to further solutions).
   Thus, search terminates when there are new candidates generated."
   [seeds sa solution? stepf]
   (loop [waiting (seq seeds)
@@ -13,11 +13,12 @@
     (if (empty? waiting)
       solutions
       (let [[newelts unprocessed] (stepf waiting sa)]
-        (recur (into unprocessed newelts)
+        (recur (into unprocessed newelts) ;sort of breadth-first
                (into solutions (filter solution? newelts)))))))
 
 (defn terminating-tree-search
-  "Same as [[tree-search]] but terminating at solutions."
+  "Same as [[tree-search]] but terminating at solutions, i.e. not including
+   solutions in unprocessed elements."
   [seeds sa solution? stepf]
   (loop [waiting (seq seeds)
          solutions (set (filter solution? seeds))]
