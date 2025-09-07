@@ -1,4 +1,4 @@
-Archived on the 7th of September 2025. Development continues on [https://codeberg.org/egri-nagy/orbit](codeberg.org/egri-nagy/orbit)
+Archived on the 7th of September 2025. Development continues on [codeberg.org/egri-nagy/orbit](https://codeberg.org/egri-nagy/orbit)
 
 [![Clojars Project](https://img.shields.io/clojars/v/orbit.svg)](https://clojars.org/orbit)
 [![Build Status](https://travis-ci.org/egri-nagy/orbit.svg?branch=master)](https://travis-ci.org/egri-nagy/orbit)
